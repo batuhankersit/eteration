@@ -1,9 +1,9 @@
-
+import MainLayout from "@/components/Layout";
 
 export default function Home() {
   return (
-   <>
-   index
-   </>
-  )
+    <MainLayout showLeftSide={true} showRightSide={true} >
+      middle
+    </MainLayout>
+  );
 }
