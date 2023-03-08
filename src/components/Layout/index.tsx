@@ -1,5 +1,6 @@
 import React from "react";
 import LayoutLeftSide from "./LeftSide";
+import RightSide from "./RightSide";
 
 interface Props {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ export default function MainLayout({
           {showLeftSide ? <LayoutLeftSide /> : null}
           {showRightSide ? (
             <div className="col-span-1 space-y-8 lg:hidden grid lg:grid-cols-1 md:gap-6 md:space-y-0">
-              right
+              <RightSide />
             </div>
           ) : null}
           <div className="col-span-4 space-y-8 md:grid md:grid-cols-1 md:gap-12 md:space-y-0">
@@ -29,7 +30,7 @@ export default function MainLayout({
           </div>
           {showRightSide ? (
             <div className="col-span-1 space-y-8 lg:grid hidden lg:grid-cols-1 md:gap-6 md:space-y-0">
-              right
+              <RightSide />
             </div>
           ) : null}
         </div>

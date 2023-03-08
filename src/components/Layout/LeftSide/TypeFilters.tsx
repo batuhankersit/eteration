@@ -15,6 +15,7 @@ function TypeFilters({ title, items }: Props) {
           type={"text"}
           className="bg-black-light border-0 focus:outline-none py-3 px-2 w-full"
           placeholder="Search"
+          value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
         {items
