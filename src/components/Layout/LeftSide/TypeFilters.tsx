@@ -5,6 +5,22 @@ interface Props {
   items: any[];
 }
 
+function decodeTurkishCharacters(text: string) {
+  return text
+    .replace(/Ğ/gim, "G")
+    .replace(/Ü/gim, "U")
+    .replace(/Ş/gim, "S")
+    .replace(/İ/gim, "I")
+    .replace(/Ö/gim, "O")
+    .replace(/Ç/gim, "C")
+    .replace(/ğ/gim, "g")
+    .replace(/ü/gim, "u")
+    .replace(/ş/gim, "s")
+    .replace(/ı/gim, "i")
+    .replace(/ö/gim, "o")
+    .replace(/ç/gim, "c");
+}
+
 function TypeFilters({ title, items }: Props) {
   const [searchText, setSearchText] = useState("");
   return (
@@ -16,7 +32,9 @@ function TypeFilters({ title, items }: Props) {
           className="bg-black-light border-0 focus:outline-none py-3 px-2 w-full"
           placeholder="Search"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          onChange={(e) =>
+            setSearchText(decodeTurkishCharacters(e.target.value))
+          }
         />
         {items
           .filter((it) =>
