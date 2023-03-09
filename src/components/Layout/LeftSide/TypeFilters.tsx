@@ -1,8 +1,10 @@
+import { useApp } from "@/context/AppContext";
 import { useState } from "react";
 
 interface Props {
   title: string;
   items: any[];
+  searchValue: "brandFilters" | "modelFilters";
 }
 
 function decodeTurkishCharacters(text: string) {
@@ -21,8 +23,27 @@ function decodeTurkishCharacters(text: string) {
     .replace(/ç/gim, "c");
 }
 
-function TypeFilters({ title, items }: Props) {
+function TypeFilters({ title, items, searchValue }: Props) {
+  const { productFilters, setProductFilters } = useApp();
   const [searchText, setSearchText] = useState("");
+
+  const filterProducts = (item: {
+    label: string;
+    id: string;
+    type: string;
+  }) => {
+    const oldFilters = productFilters;
+    const index = oldFilters[searchValue].indexOf(item.id);
+    if (index > -1) {
+      oldFilters[searchValue].splice(index, 1);
+    } else {
+      oldFilters[searchValue].push(item.id);
+    }
+    const newFilters = {
+      ...oldFilters,
+    };
+    setProductFilters(newFilters);
+  };
   return (
     <div className="mb-5">
       <span className="text-[12px] text-grey">{title}</span>
@@ -48,6 +69,7 @@ function TypeFilters({ title, items }: Props) {
                   type="checkbox"
                   value={item.id}
                   className="w-4 h-4"
+                  onChange={() => filterProducts(item)}
                 />
                 <label htmlFor={item.id} className="ml-2 text-sm font-medium">
                   {item.label}

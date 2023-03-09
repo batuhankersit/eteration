@@ -2,23 +2,35 @@ import SortFilters from "./SortFilters";
 import TypeFilters from "./TypeFilters";
 
 const brandFilters = [
-  { label: "Apple", id: "apple" },
-  { label: "Samsung", id: "samsung" },
-  { label: "Huawei", id: "huawei" },
+  { label: "Tesla", id: "Tesla" },
+  { label: "Polestar", id: "Polestar" },
+  { label: "Rolls Royce", id: "Rolls Royce" },
+  { label: "Volkswagen", id: "Volkswagen" },
+  { label: "Mini", id: "Mini" },
 ];
 
 const modelFilters = [
-  { label: "11", id: "11" },
-  { label: "12", id: "12 Pro" },
-  { label: "13 Pro Max", id: "13 Pro Max" },
+  { label: "Roadster", id: "Roadster" },
+  { label: "Grand Cherokee", id: "Grand Cherokee" },
+  { label: "Durango", id: "Durango" },
+  { label: "Fortwo", id: "Fortwo" },
+  { label: "XC90", id: "XC90" },
 ];
 
 function LayoutLeftSide() {
   return (
     <div className="col-span-1 ">
       <SortFilters />
-      <TypeFilters title={"Brands"} items={brandFilters} />
-      <TypeFilters title={"Models"} items={modelFilters} />
+      <TypeFilters
+        title={"Brands"}
+        searchValue={"brandFilters"}
+        items={brandFilters}
+      />
+      <TypeFilters
+        title={"Models"}
+        searchValue={"modelFilters"}
+        items={modelFilters}
+      />
     </div>
   );
 }
