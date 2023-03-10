@@ -1,8 +1,21 @@
 import { initialProductFilters, useApp } from "@/context/AppContext";
 import { appService } from "@/service";
+import { useEffect, useState } from "react";
 
 function HeaderSearch() {
-  const { setProducts, setSearchText, setProductFilters } = useApp();
+  const { setProducts, setSearchText, setProductFilters, searchText } =
+    useApp();
+  const [isUserTyped, setIsUserTyped] = useState<boolean>(false);
+
+  useEffect(() => {
+    //render edilir edilmez istek atmaması için bunu ekledim
+    if (isUserTyped) {
+      const timeout = setTimeout(() => {
+        onSearchChange(searchText);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [searchText]);
 
   const onSearchChange = async (val: string) => {
     setSearchText(val);
@@ -25,7 +38,10 @@ function HeaderSearch() {
       type={"text"}
       placeholder="Search"
       className="lg:w-[408px] w-full p-[8px]"
-      onChange={(e) => onSearchChange(e.target.value)}
+      onChange={(e) => {
+        setSearchText(e.target.value);
+        setIsUserTyped(true);
+      }}
     />
   );
 }

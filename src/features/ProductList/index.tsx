@@ -3,6 +3,7 @@ import useOnScreen from "@/hooks/useOnScreen";
 import { IProduct } from "@/models/product.model";
 import { appService } from "@/service";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 function ProductList() {
@@ -12,6 +13,7 @@ function ProductList() {
     productFilters,
     setProductFilters,
     searchText,
+    setNewItemToCart,
   } = useApp();
   const [hideMoreButton, setHideMoreButton] = useState(false);
 
@@ -77,7 +79,7 @@ function ProductList() {
         );
     }
   };
-
+  //filtreleme işlemlerini normalde servisten yapıyoruz fakat mockapi dökümantasyonlarını incelediğimde multiple filtrelemeyi desteklemediğini gördüm o yüzden burada kendim filtreleme ve sıralama işlemlerini yaptım
   return (
     <div className="gap-[30px] w-full lg:grid lg:grid-cols-4">
       {products
@@ -89,21 +91,26 @@ function ProductList() {
             className="col-span-1 p-[10px] bg-white cursor-pointer"
             key={x.id}
           >
-            {/* Ürünü fotoğrafı */}
-            <div className="w-full h-[150px] relative mb-[15px]">
-              <Image
-                quality={100}
-                title={x?.name}
-                src={x?.image}
-                alt={x?.name}
-                loading="lazy"
-                fill
-              />
-            </div>
-            {/* ürün bilgileri */}
-            <p className="text-primary text-[14px] mb-[15px]">{x.price}₺</p>
-            <p className="text-[14px] mb-[15px]">{x.name}</p>
-            <button className="bg-primary text-white w-full rounded px-4 py-2">
+            <Link href={`/products/${x.id}`}>
+              {/* Ürünü fotoğrafı */}
+              <div className="w-full h-[150px] relative mb-[15px]">
+                <Image
+                  quality={100}
+                  title={x?.name}
+                  src={x?.image}
+                  alt={x?.name}
+                  loading="lazy"
+                  fill
+                />
+              </div>
+              {/* ürün bilgileri */}
+              <p className="text-primary text-[14px] mb-[15px]">{x.price}₺</p>
+              <p className="text-[14px] mb-[15px]">{x.name}</p>
+            </Link>
+            <button
+              onClick={() => setNewItemToCart(x)}
+              className="bg-primary text-white w-full rounded px-4 py-2"
+            >
               Add to Cart
             </button>
           </div>
